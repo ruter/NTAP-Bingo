@@ -7,6 +7,19 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import GridModal from '$lib/components/GridModal.svelte';
 
+	const getBase64FromUrl = async (url: string) => {
+		const data = await fetch(url);
+		const blob = await data.blob();
+		return new Promise((resolve) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(blob); 
+			reader.onloadend = () => {
+				const base64data = reader.result;
+				resolve(base64data);
+			}
+		});
+	}
+
 	let stage: Konva.Stage;
 	const rectConfig = {
 		width: 120,
@@ -66,6 +79,9 @@
 
 	function handleGridComplete(imgUrl: string, files: FileList, title: string) {
 		console.log(imgUrl, files, title);
+		if (imgUrl.startsWith('http')) {
+			getBase64FromUrl(imgUrl).then((res) => imgUrl = res);
+		}
 		const config = $modalStore[0].meta?.config;
 		const layer: Konva.Layer = stage.findOne('Layer');
 		const oldImg = stage.findOne(`#image-${config.id}`);

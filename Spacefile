@@ -8,3 +8,5 @@ micros:
     primary: true
     public: true
     dev: npm run dev
+    commands:
+      - LD_LIBRARY_PATH=/var/task/node_modules/canvas/build/Release:/lib64:/usr/lib64
