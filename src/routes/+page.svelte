@@ -77,10 +77,11 @@
 		modalStore.trigger(modal);
 	}
 
-	function handleGridComplete(imgUrl: string, files: FileList, title: string) {
+	async function handleGridComplete(imgUrl: string, files: FileList, title: string) {
 		console.log(imgUrl, files, title);
 		if (imgUrl.startsWith('http')) {
-			getBase64FromUrl(imgUrl).then((res) => imgUrl = res);
+			imgUrl = await getBase64FromUrl(imgUrl);
+			console.log('new url: ', imgUrl);
 		}
 		const config = $modalStore[0].meta?.config;
 		const layer: Konva.Layer = stage.findOne('Layer');
