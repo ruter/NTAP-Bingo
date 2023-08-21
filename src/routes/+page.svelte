@@ -80,7 +80,7 @@
 	async function handleGridComplete(imgUrl: string, files: FileList, title: string) {
 		console.log(imgUrl, files, title);
 		if (imgUrl.startsWith('http')) {
-			imgUrl = await getBase64FromUrl(imgUrl);
+			imgUrl = await getBase64FromUrl(`${imgUrl}?v=1.0.1`);
 			console.log('new url: ', imgUrl);
 		}
 		const config = $modalStore[0].meta?.config;
