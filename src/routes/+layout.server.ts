@@ -2,7 +2,8 @@ import { building } from '$app/environment';
 import { env } from '$env/dynamic/private';
 
 if (building) {
-    console.log(env.LD_LIBRARY_PATH);
+    console.log('PWD: ', env.PWD);
+    console.log('LD_LIBRARY_PATH: ', env.LD_LIBRARY_PATH);
     // For building on vercel: https://github.com/Automattic/node-canvas/issues/1779
     if (
     env.LD_LIBRARY_PATH == null ||
